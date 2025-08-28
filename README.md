@@ -204,18 +204,3 @@ pip install -r requirements.txt
 cd frontend
 npm install
 ```
-
-## Development
-
-This project demonstrates advanced video processing techniques including:
-
-- Real-time person segmentation
-- MediaPipe integration
-- Binary image processing
-- Audio stream handling
-- Modern React patterns
-- Responsive UI design
-
-## License
-
-This project is designed for technical demonstration purposes.

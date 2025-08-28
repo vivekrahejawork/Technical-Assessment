@@ -4,4 +4,7 @@ python-dotenv
 flask
 flask_cors
 opencv-python
+mediapipe
+numpy
+yt-dlp
 

@@ -25,13 +25,50 @@ This repository contains two main components:
   - Loading animations and shimmer effects
   - Responsive design
 
+## Quick Start
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/vivekrahejawork/Technical-Assessment.git
+   cd Technical-Assessment
+   ```
+
+2. **Start the backend**
+
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   python main.py
+   ```
+
+3. **Start the frontend** (in a new terminal)
+
+   ```bash
+   cd frontend
+   npm install
+   npm start
+   ```
+
+4. **Open your browser** to `http://localhost:3000` and start processing videos!
+
 ## Getting Started
+
+### System Requirements
+
+- **Python 3.8+**
+- **Node.js 16+**
+- **ffmpeg** (required for video processing)
+  - **macOS**: `brew install ffmpeg`
+  - **Ubuntu/Debian**: `sudo apt install ffmpeg`
+  - **Windows**: Download from [ffmpeg.org](https://ffmpeg.org/download.html)
 
 ### Prerequisites
 
 - Python 3.8+
 - Node.js 16+
 - npm or yarn
+- ffmpeg (system dependency)
 
 ### Backend Setup
 
@@ -54,13 +91,7 @@ This repository contains two main components:
    pip install -r requirements.txt
    ```
 
-4. Install yt-dlp for YouTube support:
-
-   ```bash
-   pip install yt-dlp
-   ```
-
-5. Start the backend server:
+4. Start the backend server:
    ```bash
    python main.py
    ```
@@ -161,10 +192,13 @@ rm -rf cache && mkdir -p cache && ls -la cache
 Make sure all dependencies are installed:
 
 ```bash
+# System dependencies (install ffmpeg first)
+# macOS: brew install ffmpeg
+# Ubuntu: sudo apt install ffmpeg
+
 # Backend dependencies
 cd backend
 pip install -r requirements.txt
-pip install yt-dlp
 
 # Frontend dependencies
 cd frontend

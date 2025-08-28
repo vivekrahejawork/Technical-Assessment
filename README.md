@@ -1,63 +1,94 @@
-# Face Detection Technical Assessment
+# Video Background Processor
 
-A full-stack application for implementing face detection on video content, designed as a technical assessment platform.
+A full-stack application that processes videos to create a colorized person with black & white background effect. Supports YouTube videos and direct video URLs with advanced person segmentation using MediaPipe.
 
 ## Project Structure
 
 This repository contains two main components:
 
-### Backend (`/app`)
-- **Technology**: Python Flask/FastAPI
-- **Purpose**: Provides API endpoints for face detection processing
+### Backend (`/backend`)
+
+- **Technology**: Python Flask with MediaPipe, OpenCV, and yt-dlp
+- **Purpose**: Video processing, person segmentation, and YouTube video download
 - **Key Files**:
-  - `main.py` - Main application entry point
-  - `helpers.py` - Utility functions and helpers
-  - `requirements.txt` - Python dependencies
+  - `main.py` - Main Flask application with video processing endpoints
+  - `helpers.py` - Utility functions
+  - `cache/` - Video cache directory for processed files
 
 ### Frontend (`/frontend`)
+
 - **Technology**: React with TypeScript
-- **Purpose**: User interface for video playback and face detection visualization
-- **Key Files**:
-  - `src/App.tsx` - Main React component
-  - `src/components/` - Reusable UI components
-  - `src/consts.ts` - Configuration constants (video URL)
+- **Purpose**: Modern UI for video upload, processing, and comparison
+- **Key Features**:
+  - YouTube URL support
+  - Side-by-side video comparison
+  - Loading animations and shimmer effects
+  - Responsive design
 
 ## Getting Started
 
 ### Prerequisites
+
 - Python 3.8+
 - Node.js 16+
 - npm or yarn
 
 ### Backend Setup
 
-1. Navigate to the project root directory
-2. Create and activate a virtual environment:
+1. Navigate to the backend directory:
+
+   ```bash
+   cd backend
+   ```
+
+2. Create and activate a virtual environment (recommended):
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
 3. Install Python dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Start the backend server:
+4. Install yt-dlp for YouTube support:
+
    ```bash
-   python app/main.py
+   pip install yt-dlp
+   ```
+
+5. Start the backend server:
+   ```bash
+   python main.py
    ```
 
 The backend will run on `http://127.0.0.1:8080`
 
+### Cache Management
+
+The backend creates a cache directory to store downloaded and processed videos. If you encounter issues or want to clear the cache:
+
+```bash
+# Clear and recreate cache directory
+rm -rf cache && mkdir -p cache && ls -la cache
+
+# Or manually delete specific cached files
+rm cache/*.mp4
+```
+
 ### Frontend Setup
 
 1. Navigate to the frontend directory:
+
    ```bash
    cd frontend
    ```
 
 2. Install Node.js dependencies:
+
    ```bash
    npm install
    ```
@@ -72,47 +103,85 @@ The frontend will run on `http://localhost:3000`
 ## API Endpoints
 
 ### Backend Routes
+
 - `GET /hello-world` - Test endpoint to verify backend connectivity
-- Additional endpoints can be added for face detection processing
+- `GET /processed-video?src=<video_url>` - Process video with person segmentation
+- `GET /preview?src=<video_url>` - MJPEG preview stream of processed video
 
 ## Usage
 
 1. Start both the backend and frontend servers
 2. Open your browser to `http://localhost:3000`
-3. The video will be displayed and ready for face detection
-4. Click "Ping Backend" to test the connection between frontend and backend
-5. Implement face detection logic in the backend and connect it to the frontend
+3. Use the default video or click "Change Video" to add a YouTube URL
+4. Click "Make Background B&W" to process the video
+5. Watch the shimmer loading effect and compare the results side-by-side
 
-## Development Notes
+### Supported Video Sources
 
-### For Assessment Takers
-- The main task is to implement face detection functionality
-- Backend: Add face detection processing endpoints in `app/main.py`
-- Frontend: Connect to your backend endpoints from `src/App.tsx`
-- The video URL is configured in `frontend/src/consts.ts`
+- **YouTube URLs**: Any public YouTube video
+- **Direct Video URLs**: Direct links to .mp4 files
+- **Default Video**: Pre-configured sample video
 
-### Project Configuration
-- Video source is configured in `frontend/src/consts.ts`
-- Backend port is set to 8080 by default
-- Frontend development server runs on port 3000
+## Features
+
+- **Advanced Person Segmentation**: Uses MediaPipe for accurate person detection
+- **Binary Separation**: Clean color/B&W separation with minimal halo
+- **Audio Preservation**: Maintains original audio track in processed videos
+- **Caching System**: Efficient video caching for faster repeat processing
+- **Modern UI**: Responsive design with loading animations
 
 ## Technologies Used
 
-- **Backend**: Python, Flask/FastAPI
+- **Backend**: Python Flask, MediaPipe, OpenCV, yt-dlp, ffmpeg
 - **Frontend**: React, TypeScript, HTML5 Video
-- **Styling**: CSS3 with modern responsive design
-- **Development**: Hot reload for both frontend and backend
+- **Styling**: CSS3 with modern responsive design and animations
+- **Video Processing**: MediaPipe Selfie Segmentation with pose detection
+- **Audio Processing**: ffmpeg for audio stream copying
 
-## Contributing
+## Troubleshooting
 
-1. Fork the repository
-2. Create a feature branch
-3. Implement your changes
-4. Test both backend and frontend
-5. Submit a pull request
+### Common Issues
+
+1. **Video not loading**: Check if the video URL is accessible and the backend is running
+2. **Processing fails**: Clear the cache and restart the backend
+3. **YouTube download fails**: Ensure yt-dlp is installed and the video is public
+4. **Audio missing**: Check that ffmpeg is properly installed on your system
+
+### Cache Issues
+
+If you encounter video processing issues, clear the cache:
+
+```bash
+cd backend
+rm -rf cache && mkdir -p cache && ls -la cache
+```
+
+### Dependencies
+
+Make sure all dependencies are installed:
+
+```bash
+# Backend dependencies
+cd backend
+pip install -r requirements.txt
+pip install yt-dlp
+
+# Frontend dependencies
+cd frontend
+npm install
+```
+
+## Development
+
+This project demonstrates advanced video processing techniques including:
+
+- Real-time person segmentation
+- MediaPipe integration
+- Binary image processing
+- Audio stream handling
+- Modern React patterns
+- Responsive UI design
 
 ## License
 
-This project is designed for technical assessment purposes.
-
-You may use any tool you wish but you are responsible for understanding all parts of the implementation.
+This project is designed for technical demonstration purposes.
